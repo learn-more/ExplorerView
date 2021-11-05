@@ -42,7 +42,7 @@ public:
         SERVICE_ENTRY(SID_STopLevelBrowser)
         SERVICE_ENTRY(SID_SShellBrowser)
         // Show failed QueryService attempts
-        DBG_TRACE(__FUNCTION__ "(guidService = %S, riid = %S) = E_NOINTERFACE\n", DumpIID(guidService).GetString(), DumpIID(riid).GetString());
+        DBG_TRACE_FN("(guidService = %S, riid = %S) = E_NOINTERFACE\n", DumpIID(guidService).GetString(), DumpIID(riid).GetString());
     END_SERVICE_MAP()
 
     HRESULT STDMETHODCALLTYPE v_MayTranslateAccelerator(MSG* pmsg)
@@ -57,29 +57,29 @@ public:
     {
         if (riid == IID_IUnknown)
         {
-            //DBG_TRACE(__FUNCTION__ "(riid = IID_IUnknown) = S_OK\n");
+            //DBG_TRACE_FN("(riid = IID_IUnknown) = S_OK\n");
             *ppvObject = (IUnknown*)(IShellBrowser*)this;
             return S_OK;
         }
         if (riid == IID_IServiceProvider)
         {
-            //DBG_TRACE(__FUNCTION__ "(riid = IID_IServiceProvider) = S_OK\n");
+            //DBG_TRACE_FN("(riid = IID_IServiceProvider) = S_OK\n");
             *ppvObject = (IServiceProvider*)this;
             return S_OK;
         }
         if (riid == IID_IOleWindow)
         {
-            //DBG_TRACE(__FUNCTION__ "(riid = IID_IOleWindow) = S_OK\n");
+            //DBG_TRACE_FN("(riid = IID_IOleWindow) = S_OK\n");
             *ppvObject = (IOleWindow*)this;
             return S_OK;
         }
         if (riid == IID_IShellBrowser)
         {
-            //DBG_TRACE(__FUNCTION__ "(riid = IID_IShellBrowser) = S_OK\n");
+            //DBG_TRACE_FN("(riid = IID_IShellBrowser) = S_OK\n");
             *ppvObject = (IShellBrowser*)this;
             return S_OK;
         }
-        DBG_TRACE(__FUNCTION__ "(riid = %S) = E_NOINTERFACE\n", DumpIID(riid).GetString());
+        DBG_TRACE_FN("(riid = %S) = E_NOINTERFACE\n", DumpIID(riid).GetString());
         return E_NOINTERFACE;
     }
 
@@ -104,7 +104,7 @@ public:
 
     STDMETHOD(ContextSensitiveHelp)(BOOL fEnterMode)
     {
-        DBG_TRACE(__FUNCTION__ "(fEnterMode = %d)\n", fEnterMode);
+        DBG_TRACE_FN("(fEnterMode = %d)\n", fEnterMode);
         return E_NOTIMPL;
     }
     // -IOleWindow
@@ -112,37 +112,37 @@ public:
     // +IShellBrowser
     STDMETHOD(InsertMenusSB)(HMENU hmenuShared, LPOLEMENUGROUPWIDTHS lpMenuWidths)
     {
-        DBG_TRACE(__FUNCTION__ "(hmenuShared = %p, lpMenuWidths = %p)\n", hmenuShared, lpMenuWidths);
+        DBG_TRACE_FN("(hmenuShared = %p, lpMenuWidths = %p)\n", hmenuShared, lpMenuWidths);
         return E_NOTIMPL;
     }
 
     STDMETHOD(SetMenuSB)(HMENU hmenuShared, HOLEMENU holemenuRes, HWND hwndActiveObject)
     {
-        DBG_TRACE(__FUNCTION__ "(hmenuShared = %p, holemenuRes = %p, hwndActiveObject = %p)\n", hmenuShared, holemenuRes, hwndActiveObject);
+        DBG_TRACE_FN("(hmenuShared = %p, holemenuRes = %p, hwndActiveObject = %p)\n", hmenuShared, holemenuRes, hwndActiveObject);
         return E_NOTIMPL;
     }
 
     STDMETHOD(RemoveMenusSB)(HMENU hmenuShared)
     {
-        DBG_TRACE(__FUNCTION__ "(hmenuShared = %p)\n", hmenuShared);
+        DBG_TRACE_FN("(hmenuShared = %p)\n", hmenuShared);
         return E_NOTIMPL;
     }
 
     STDMETHOD(SetStatusTextSB)(LPCWSTR pszStatusText)
     {
-        DBG_TRACE(__FUNCTION__ "(pszStatusText = %s)\n", pszStatusText);
+        DBG_TRACE_FN("(pszStatusText = %s)\n", pszStatusText);
         return E_NOTIMPL;
     }
 
     STDMETHOD(EnableModelessSB)(BOOL fEnable)
     {
-        DBG_TRACE(__FUNCTION__ "(fEnable = %d)\n", fEnable);
+        DBG_TRACE_FN("(fEnable = %d)\n", fEnable);
         return E_NOTIMPL;
     }
 
     STDMETHOD(TranslateAcceleratorSB)(MSG* pmsg, WORD wID)
     {
-        DBG_TRACE(__FUNCTION__ "(pmsg = %p, wID = %u)\n", pmsg, wID);
+        DBG_TRACE_FN("(pmsg = %p, wID = %u)\n", pmsg, wID);
         return E_NOTIMPL;
     }
 
@@ -217,26 +217,26 @@ public:
 
     STDMETHOD(GetViewStateStream)(DWORD grfMode, IStream** ppStrm)
     {
-        DBG_TRACE(__FUNCTION__ "(grfMode = %d, ppStrm = %p)\n", grfMode, ppStrm);
+        DBG_TRACE_FN("(grfMode = %d, ppStrm = %p)\n", grfMode, ppStrm);
         return E_NOTIMPL;
     }
 
     STDMETHOD(GetControlWindow)(UINT id, HWND* phwnd)
     {
         *phwnd = 0;
-        DBG_TRACE(__FUNCTION__ "(id = %d, phwnd = %p)\n", id, phwnd);
+        DBG_TRACE_FN("(id = %d, phwnd = %p)\n", id, phwnd);
         return S_FALSE;
     }
 
     STDMETHOD(SendControlMsg)(UINT id, UINT uMsg, WPARAM wParam, LPARAM lParam,LRESULT* pret)
     {
-        DBG_TRACE(__FUNCTION__ "(id = %d, uMsg = 0x%x, wParam = 0x%x, lParam = 0x%x)\n", id, uMsg, wParam, lParam);
+        DBG_TRACE_FN("(id = %d, uMsg = 0x%x, wParam = 0x%x, lParam = 0x%x)\n", id, uMsg, wParam, lParam);
         return E_NOTIMPL;
     }
 
     STDMETHOD(QueryActiveShellView)(IShellView** ppshv)
     {
-        DBG_TRACE(__FUNCTION__ "(ppshv = %p)\n", ppshv);
+        DBG_TRACE_FN("(ppshv = %p)\n", ppshv);
         ATLASSERT(m_spView);
         *ppshv = m_spView;
         (*ppshv)->AddRef();
@@ -245,13 +245,13 @@ public:
 
     STDMETHOD(OnViewWindowActive)(IShellView* pshv)
     {
-        DBG_TRACE(__FUNCTION__ "(pshv = %p)\n", pshv);
+        DBG_TRACE_FN("(pshv = %p)\n", pshv);
         return E_NOTIMPL;
     }
 
     STDMETHOD(SetToolbarItems)(LPTBBUTTONSB lpButtons, UINT nButtons, UINT uFlags)
     {
-        DBG_TRACE(__FUNCTION__ "(lpButtons = %p, nButtons = %u, uFlags = 0x%x)\n", lpButtons, nButtons, uFlags);
+        DBG_TRACE_FN("(lpButtons = %p, nButtons = %u, uFlags = 0x%x)\n", lpButtons, nButtons, uFlags);
         return E_NOTIMPL;
     }
     // -IShellBrowser

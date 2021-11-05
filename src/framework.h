@@ -26,4 +26,5 @@ HRESULT _ShellFolderFromPidl(PCUIDLIST_RELATIVE pidl, ATL::CComPtr<IShellFolder>
 
 
 #define DBG_TRACE(fmt, ...) DbgReport(fmt, __VA_ARGS__)
+#define DBG_TRACE_FN(fmt, ...) DbgReport(__FUNCTION__ fmt, __VA_ARGS__)
 
