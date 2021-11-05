@@ -20,7 +20,7 @@ struct Location
 
 class CExplorerHost: public CWindowImpl<CExplorerHost, CWindow, CFrameWinTraits>
     , IShellBrowser
-    , IServiceProvider
+    , IServiceProviderImpl<CExplorerHost>
 {
 public:
     HWND m_hView;
@@ -37,6 +37,13 @@ public:
         MESSAGE_HANDLER(WM_CREATE, OnCreate)
         MESSAGE_HANDLER(WM_DESTROY, OnDestroy)
     END_MSG_MAP()
+
+    BEGIN_SERVICE_MAP(CExplorerHost)
+        SERVICE_ENTRY(SID_STopLevelBrowser)
+        SERVICE_ENTRY(SID_SShellBrowser)
+        // Show failed QueryService attempts
+        DBG_TRACE(__FUNCTION__ "(guidService = %S, riid = %S) = E_NOINTERFACE\n", DumpIID(guidService).GetString(), DumpIID(riid).GetString());
+    END_SERVICE_MAP()
 
     HRESULT STDMETHODCALLTYPE v_MayTranslateAccelerator(MSG* pmsg)
     {
@@ -86,20 +93,6 @@ public:
         return 1L;
     }
     // -IUnknown
-
-    // +IServiceProvider
-    STDMETHOD(QueryService)(REFGUID guidService, REFIID riid, void** ppvObject)
-    {
-        if (riid == IID_IShellBrowser)
-        {
-            DBG_TRACE(__FUNCTION__ "(riid = IID_IShellBrowser) = S_OK\n");
-            *ppvObject = (IShellBrowser*)this;
-            return S_OK;
-        }
-        DBG_TRACE(__FUNCTION__ "(riid = %S) = E_NOINTERFACE\n", DumpIID(riid).GetString());
-        return E_NOINTERFACE;
-    }
-    // -IServiceProvider
 
 
     // +IOleWindow
